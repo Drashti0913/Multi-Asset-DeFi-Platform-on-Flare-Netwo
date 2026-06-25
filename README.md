@@ -8,6 +8,7 @@
 ![Stack](https://img.shields.io/badge/Wallet-MetaMask-F6851B?style=flat-square&logo=metamask)
 
 ---
+<img width="1918" height="970" alt="image" src="https://github.com/user-attachments/assets/98d46b9b-6ace-45b8-99bb-fc5306029a32" />
 
 ## Overview
 
