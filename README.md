@@ -1,291 +1,130 @@
-# DeFi Multi-Asset Trading Platform
+# FlareTrader — Multi-Asset DeFi Platform on Flare Network
 
-A decentralized finance (DeFi) trading platform that enables users to trade cryptocurrency, stocks, and precious metals using the Flare Network's FTSO (Flare Time Series Oracle) for real-time price data.
+> Built at **EasyA Hackathon** · Flare Network (Coston2 Testnet) · Real-time FTSO price oracle integration
 
-<img width="1918" height="970" alt="heehe" src="https://github.com/user-attachments/assets/31a27d58-8837-4802-b67f-fc70692b0fa8" />
+![Stack](https://img.shields.io/badge/Blockchain-Flare%20Network-E63946?style=flat-square)
+![Stack](https://img.shields.io/badge/Web3-Ethers.js%20v5-purple?style=flat-square)
+![Stack](https://img.shields.io/badge/Oracle-FTSO-orange?style=flat-square)
+![Stack](https://img.shields.io/badge/Wallet-MetaMask-F6851B?style=flat-square&logo=metamask)
 
-## Features
+---
 
-### Multi-Asset Trading
-- **Cryptocurrency**: Bitcoin, Ethereum, Ripple, Cardano, Polkadot, Solana, Polygon, Avalanche
-- **Stocks**: Apple, Google, Microsoft, Amazon, Tesla, Meta, Netflix, NVIDIA
-- **Precious Metals**: Gold, Silver, Platinum, Palladium
+## Overview
 
-### Core Functionality
-- **Wallet Integration**: MetaMask wallet connection with Flare Coston2 testnet
-- **Real-time Pricing**: FTSO-powered price feeds for all asset categories
-- **Buy/Sell Trading**: Complete trading functionality with profit/loss tracking
-- **Portfolio Management**: Track holdings, average prices, and performance
-- **Transaction History**: Monitor all trading activities
+FlareTrader is a decentralized trading interface built in 24 hours at the EasyA Hackathon. It enables simulated trading of **crypto, stocks, and precious metals** in a single unified interface — powered by Flare's **FTSO (Flare Time Series Oracle)** for real-time, decentralized price feeds.
 
-### User Experience
-- **Category Selection**: Interactive checkboxes for asset type filtering
-- **Responsive Design**: Mobile-friendly interface with modern UI
-- **Live Updates**: Auto-refresh market data every 30 seconds
-- **Status Tracking**: Real-time transaction and connection status
+The core challenge we tackled: most DeFi platforms only support crypto. FTSO uniquely supports cross-asset price data (equities + metals + crypto), so we built a UI to demonstrate that breadth.
 
-## Technology Stack
+---
 
-- **Frontend**: HTML5, CSS3, JavaScript (ES6+)
-- **Blockchain**: Flare Network (Coston2 Testnet)
-- **Web3**: Ethers.js v5.7.2
-- **Wallet**: MetaMask integration
-- **Oracle**: Flare Time Series Oracle (FTSO)
+## What It Does
 
-## Getting Started
+- **Multi-asset trading** — 8 cryptocurrencies, 8 stocks (AAPL, NVDA, TSLA...), 4 precious metals (XAU, XAG, XPT, XPD)
+- **Live FTSO price feeds** — decentralized oracle data, auto-refreshed every 30 seconds
+- **Buy / Sell with P&L tracking** — portfolio view with average cost basis and performance
+- **MetaMask wallet integration** — connects to Flare Coston2 testnet, auto-switches network
+- **Transaction history** — tracks all simulated trades in-session
+
+> **Note:** This runs on Coston2 testnet. No real funds involved — trades are simulated against mock on-chain state.
+
+---
+
+## Architecture
+
+```
+┌──────────────────────────────────────────────────┐
+│              Browser (HTML/CSS/JS)               │
+│   Asset selector → Trade UI → Portfolio view     │
+└───────────────────┬──────────────────────────────┘
+                    │ Ethers.js
+        ┌───────────▼───────────┐
+        │     MetaMask Wallet   │
+        │   (Coston2 Testnet)   │
+        └───────────┬───────────┘
+                    │ RPC calls
+        ┌───────────▼───────────┐
+        │   Flare Network       │
+        │   FTSO Price Oracle   │
+        │   Smart Contracts     │
+        └───────────────────────┘
+```
+
+**Key technical decisions:**
+- **Client-side only** — no backend server; all state managed in-browser via Ethers.js
+- **FTSO over Chainlink** — Flare's native oracle supports equities and metals natively, which Chainlink does not on this network
+- **Coston2 testnet** — allows full on-chain interaction without real asset risk
+
+---
+
+## Quick Start
 
 ### Prerequisites
+- [MetaMask](https://metamask.io/) browser extension
+- Coston2 testnet tokens from the [Faucet](https://coston2-faucet.towolabs.com/) (min 10 C2FLR)
 
-1. **MetaMask Wallet**
-   - Install MetaMask browser extension
-   - Create or import a wallet
-   - Switch to Flare Coston2 testnet
+### Run Locally
 
-2. **Testnet Tokens**
-   - Get free C2FLR tokens from [Coston2 Faucet](https://coston2-faucet.towolabs.com/)
-   - Minimum 10 FLR recommended for testing
-
-### Installation
-
-1. **Clone the Repository**
 ```bash
-   git clone https://github.com/your-username/defi-multi-asset-trading.git
-   cd defi-multi-asset-trading
+git clone https://github.com/Drashti0913/EasyA_Hackathon.git
+cd EasyA_Hackathon
+
+# Option 1: Python
+python -m http.server 8000
+
+# Option 2: Node
+npx serve .
 ```
-2.**Open the application**
-- open index.html in a web browser
--or serve via a local web server:
-```bash   # Using Python
-   python -m http.server 8000
-   
-   # Using Node.js
-   npx serve .
+
+Open `http://localhost:8000`, click **Connect MetaMask**, and approve the Coston2 network switch.
+
+### Network Config (if needed)
+
+| Field | Value |
+|---|---|
+| Network Name | Flare Testnet Coston2 |
+| RPC URL | `https://coston2-api.flare.network/ext/C/rpc` |
+| Chain ID | 114 (0x72) |
+| Currency | C2FLR |
+| Explorer | https://coston2-explorer.flare.network |
+
+---
+
+## Project Structure
+
 ```
-3.**Connect your wallet**
--click " Connect MetaMask"
--  Approve network switch to coston 2
--  confirm wallet connection
-    
-### Usage Guide
-
-1.**Wallet Connection**
-- Click the "Connect MetaMask" button
-- Approve the connection request
-- The platform will automatically switch to Flare Coston2 testnet
-- Your wallet address and balance will be displayed
-  
-2.**Asset Selection**
-  - Select desired asset categories using checkboxes:
-  - Cryptocurrency
-  - Stocks
-  -Precious metals
-  - choose specific assets from ythe dropdown menu
-  -Asset prices update automatically via FTSO
-    
-3.**Trading**
-    - Toggle between "Buy" and "Sell" modes
-    - Enter the quantity you want to trade
-    - Review the price calculation and total cost
-    - Click "Buy Assets" and "Sell Assets" to execute
-    - Monitor transcation status in real-time
-
-    
- 4.**Portfolio Management**
- - View your holdings in portfolio section
- - Track profit/loss for each position
- - Monitor average purchase prices
- - See overall portfolio performance
-
-### Network Configuration
-**Flare Coston2 Testnet Details**
-Network Name: Flare Testnet Coston2
-RPC URL: https://coston2-api.flare.network/ext/C/rpc
-Chain ID: 114 (0x72)
-Currency Symbol: C2FLR
-Block Explorer: https://coston2-explorer.flare.network/
-
-### FTSO Integration 
-The platform leverages Flare's Time Series Oracle for:
-
-   -Real-time price feeds across all asset categories
- 
-   -Decentralized price discovery
-  
-   -High-frequency price updates
-    
-   -Cross-asset price correlations
-
-### Supported FTSO Feeds
-
-  -Crypto: BTC/USD, ETH/USD, XRP/USD, ADA/USD, DOT/USD, SOL/USD
- 
-  -Stocks: AAPL, GOOGL, MSFT, AMZN, TSLA, META, NFLX, NVDA
- 
-  -Metals: XAU/USD, XAG/USD, XPT/USD, XPD/USD
-
-### Security Features
-
-  -Client-side Only: No backend servers or databases
- 
-  -MetaMask Integration: Secure wallet connection
- 
-  -Testnet Environment: No real funds at risk
- 
-  -Transaction Verification: All trades verified on-chain
- 
-  -Network Validation: Automatic network switching
-
-### File Structure
-defi-multi-asset-trading/
-│
-├── index.html               # Main application file
-├── README.md                # Project documentation
-├── assets/
-│   ├── images/              # UI images and icons
-│   └── styles/              # Additional CSS files
-└── docs/
-    ├── API.md              # API documentation
-    ├── DEPLOYMENT.md       # Deployment guide
-    └── CONTRIBUTING.md     # Contribution guidelines
-
- ### Browser Compatibility 
- 
-  -Chrome: v90+
- 
-  -Firefox: v88+
- 
-  -Safari: v14+
- 
-  -Edge: v90+
- 
-  -Mobile: iOS Safari, Chrome Mobile
-
-### Known Limitations
-
- -Testnet Only: Currently operates on Coston2 testnet
-
- -Mock Backend: Simulated API responses for demonstration
-
- -Limited Assets: Predefined set of tradeable assets
- 
- -Demo Transactions: No actual blockchain transactions in current version
-
-### Development Roadmap
- **Phase 1 (Current)**
-
- Multi-asset category selection
- 
- FTSO price integration
- 
- Basic trading interface
- 
- Portfolio tracking
-
- **Phase 2 (Planned)**
-
- Real blockchain transactions
- 
- Advanced charting
- 
- Price alerts
- 
- Trading history export
-
- **Phase 3 (Future)**
-
- Mainnet deployment
- 
- Additional asset categories
- 
- Advanced order types
- 
- Social trading features
- 
- ### Contributing
-
-Fork the repository
-
-Create a feature branch (git checkout -b feature/amazing-feature)
-
-Commit your changes (git commit -m 'Add amazing feature')
-
-Push to the branch (git push origin feature/amazing-feature)
-
-Open a Pull Request
-
-### Testing
-**Manual Testing Checklist**
-
- Wallet connection/disconnection
- 
- Asset category selection
- 
- Buy/sell trade execution
- 
- Portfolio updates
- 
- Price refresh functionality
- 
- Mobile responsiveness
-
-### Test Coverage
-
-Unit tests for trading logic
-
-Integration tests for FTSO connectivity
-
-E2E tests for user workflows
-
-### Troubleshooting
-**Common Issues**
-**MetaMask Not Detected**
-
-Ensure MetaMask extension is installed and enabled
-
-Refresh the page and try again
-
-**Network Switch Failed**
-
-Manually add Coston2 network to MetaMask
-
-Check network configuration details above
-
-**Transaction Failed**
-
-Verify sufficient C2FLR balance
-
-Check network connectivity
-
-Retry after a few seconds
-
-**Price Data Not Loading**
-
-Check FTSO network status
-
-Refresh the application
-
-Verify testnet connectivity
-
-### License
-This project is licensed under the MIT License - see the LICENSE file for details.
-### Disclaimer
-IMPORTANT: This is a testnet demonstration application. No real funds are involved. Do not send real cryptocurrency or attempt to trade with actual assets. This platform is for educational and testing purposes only.
-### Support
-For questions, issues, or contributions:
-
-Create an issue on GitHub
-
-Join our community discussions
-
-Check the documentation in /docs
-
-### Acknowledgments
-
-Flare Network team for FTSO infrastructure
-
-MetaMask for wallet integration
-
-Ethers.js for blockchain connectivity
-
-The DeFi community for inspiration
+├── server.js              # Local dev server
+├── portfolio_server.js    # Portfolio state handler
+├── contracts/             # Solidity smart contracts
+├── scripts/               # Deployment scripts (Hardhat)
+├── models/                # Data models
+├── public/                # Frontend assets
+├── hardhat.config.js      # Hardhat + Flare network config
+└── .env.example           # Required env vars
 ```
+
+---
+
+## FTSO Feeds Used
+
+| Category | Assets |
+|---|---|
+| Crypto | BTC/USD, ETH/USD, XRP/USD, ADA/USD, DOT/USD, SOL/USD, MATIC/USD, AVAX/USD |
+| Stocks | AAPL, GOOGL, MSFT, AMZN, TSLA, META, NFLX, NVDA |
+| Metals | XAU/USD, XAG/USD, XPT/USD, XPD/USD |
+
+---
+
+## Hackathon Context
+
+Built at **EasyA Hackathon** focused on the Flare Network ecosystem. The goal was to demonstrate FTSO's unique cross-asset oracle capability — something no major DeFi platform had fully explored at the time. The 24-hour constraint meant prioritizing working FTSO integration and clean UX over production-grade smart contracts.
+
+**What we'd improve with more time:**
+- Real on-chain trade execution (currently simulated)
+- Persistent portfolio state via contract storage
+- Price chart history using FTSO historical feeds
+
+---
+
+## License
+
+MIT
